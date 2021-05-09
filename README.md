@@ -1,3 +1,36 @@
+# Get All Records From FireStore DataBase Collection Name "Posts"
+
+const getPosts = async () => {
+const dbRef = firebase.firestore();
+const data = await dbRef.collection("Posts").get();
+const arr = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+setPosts(arr);
+};
+
+# Add or Update Post
+
+const addPost = (post) => {
+const dbRef = firebase.firestore();
+if (post.id === "") {
+dbRef.collection("Posts").add(post);
+} else {
+dbRef
+.collection("Posts")
+.doc(post.id)
+.set({ ...post });
+}
+getPosts();
+setIPost(initial);
+};
+
+# Delete Post
+
+const deletePost = (id) => {
+const dbRef = firebase.firestore();
+dbRef.collection("Posts").doc(id).delete();
+getPosts();
+};
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
